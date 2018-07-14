@@ -33,7 +33,7 @@ describe "Github" do
 
 
   it "should find a repository on github for: #{USER_REPO} [20 points]" do
-    (@client.repository? USER_REPO).should be_true
+    (@client.repository? USER_REPO).should be true
   end
 
   it "should be a freshly created repo, not a fork  [50 points]" do
