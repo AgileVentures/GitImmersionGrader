@@ -14,13 +14,11 @@ def check_client
 end
 
 describe "Github" do
-
   # START_DATE = '2014-01-01'
   START_DATE = Date.today << 12 # months
 
   # This ENV var comes from GithubRspecGrader
   USER_REPO = ENV['GITHUB_USERNAME']+'/gitimmersion'
-
   before (:all) do
     # Rate limit is 5000/hr with good token, 60/hr with
     # This ENV var comes from travis env:global:secure or set by admin
@@ -32,29 +30,28 @@ describe "Github" do
   end
 
 
-  it "should find a repository on github for: #{USER_REPO} [20 points]" do
+  it "should find a repository on github for: #{USER_REPO} [20 points]", points: 20 do
     (@client.repository? USER_REPO).should be true
   end
 
-  it "should be a freshly created repo, not a fork  [50 points]" do
+  it "should be a freshly created repo, not a fork  [50 points]", points: 50 do
     @client.repository(USER_REPO).parent.should be_nil
   end
 
   #TODO point per commit is possible?
-  it "should have at least 3 commits since #{START_DATE} [5 points]" do
+  it "should have at least 3 commits since #{START_DATE} [5 points]", points: 5 do
     @commits.count.should be > 3
   end
 
-  it "should have at least 6 commits since #{START_DATE} [10 points]" do
+  it "should have at least 6 commits since #{START_DATE} [10 points]", points: 10 do
     @commits.count.should be > 6
   end
 
-  it "should have at least 9 commits since #{START_DATE} [10 points]" do
+  it "should have at least 9 commits since #{START_DATE} [10 points]", points: 10 do
     @commits.count.should be > 9
   end
 
-  it "should have some tags [5 points]" do
+  it "should have some tags [5 points]", points: 5 do
     @client.tags(USER_REPO).should_not be_empty
   end
-
 end
